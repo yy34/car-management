@@ -1,5 +1,5 @@
 <script setup>
-import TableList from "./components/TableList.vue";
+import ListCar from "./components/ListCar.vue";
 import ThemeSwitch from "./components/ThemeSwitch.vue";
 </script>
 
@@ -7,7 +7,7 @@ import ThemeSwitch from "./components/ThemeSwitch.vue";
   <div
     class="pt-8 flex items-center justify-center bg-white dark:bg-slate-700 min-h-screen"
   >
-    <TableList></TableList>
+    <ListCar></ListCar>
   </div>
   <ThemeSwitch></ThemeSwitch>
 </template>

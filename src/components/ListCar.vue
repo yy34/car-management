@@ -24,10 +24,10 @@
   >
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <caption
-        class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800"
+        class="p-5 text-base font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800"
       >
         Car Management
-        <p class="mt- text-sm font-normal text-gray-500 dark:text-gray-400">
+        <p class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
           View or edit your car list.
         </p>
       </caption>
@@ -36,25 +36,42 @@
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
-          <th scope="col" class="px-6 py-3">ID</th>
-          <th scope="col" class="px-6 py-3">CAR</th>
-          <th scope="col" class="px-6 py-3">INSTOCK</th>
-          <th scope="col" class="px-6 py-3">HP</th>
-          <th scope="col" class="px-6 py-3">PRICE</th>
-          <th scope="col" class="px-6 py-3">COLOR</th>
-          <th scope="col" class="px-6 py-3">ACTION</th>
+          <th
+            v-for="column in columns"
+            :key="column.id"
+            scope="col"
+            class="px-6 py-3"
+          >
+            {{ column.name }}
+          </th>
         </tr>
       </thead>
       <tbody>
-        <template v-for="car in cars" :key="car.id">
+        <template v-for="(car, index) in cars" :key="car.id">
           <tr
-            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+            :class="{
+              'bg-gray-50 dark:bg-gray-800 dark:border-gray-700':
+                index % 2 !== 0,
+              'bg-white dark:bg-gray-900 dark:border-gray-700 ': index % 2 == 0,
+            }"
+            class="text-xs border-b hover:bg-gray-100 dark:hover:bg-gray-600"
           >
             <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">
               {{ car.id + 1 }}
             </td>
             <td class="px-6 py-4">{{ car.carId }}</td>
-            <td class="px-6 py-4 capitalize">{{ car.inStock }}</td>
+            <td class="px-6 py-4 capitalize">
+              <span
+                class="font-medium mr-2 px-2.5 py-0.5 rounded"
+                :class="{
+                  'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300':
+                    car.inStock,
+                  'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-300':
+                    !car.inStock,
+                }"
+                >{{ car.inStock }}</span
+              >
+            </td>
             <td class="px-6 py-4">{{ car.hp }}</td>
             <td class="px-6 py-4">{{ car.price }} €</td>
             <td class="px-6 py-4">
@@ -68,19 +85,16 @@
             </td>
             <td class="px-6 py-4">
               <button
-                id="button"
                 type="button"
-                @click="openEditModal(car.id)"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                id="button"
+                @click="openEditModal(car?.id)"
+                class="mb-2 md:mb-0 bg-white px-5 py-1.5 text-xs shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100"
               >
                 Edit
               </button>
             </td>
           </tr>
         </template>
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-        ></tr>
       </tbody>
     </table>
   </div>
@@ -93,34 +107,39 @@
 </template>
 
 <script>
-import { computed } from "vue";
 import EditCar from "./EditCar.vue";
 import CONSTANTS from "../data/constants";
-import { mapGetters } from "vuex";
-
+import { useStore } from "vuex";
+import { computed, ref } from "vue";
 export default {
-  computed: {
-    ...mapGetters({ cars: "getCars", status: "getLoadingStatus" }),
+  setup() {
+    const store = useStore();
+    store.dispatch("fetchCars");
+    const colorVariants = CONSTANTS.COLOR_WARIANTS;
+    const columns = CONSTANTS.COLUMNS;
+    const isOpen = ref(false);
+    const selectedCar = ref("");
+    const cars = computed(() => store.getters.getCars);
+    const status = computed(() => store.getters.getLoadingStatus);
+
+    return {
+      colorVariants,
+      cars,
+      status,
+      columns,
+      isOpen,
+      selectedCar,
+    };
   },
-  setup() {},
   components: {
     EditCar,
   },
-  data() {
-    return {
-      isOpen: false,
-      selectedCar: "",
-      colorVariants: CONSTANTS.colorVariants,
-    };
-  },
+
   methods: {
     openEditModal(car) {
       this.selectedCar = car;
       this.isOpen = !this.isOpen;
     },
-  },
-  mounted() {
-    this.$store.dispatch("fetchCars");
   },
 };
 </script>
