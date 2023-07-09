@@ -9,7 +9,7 @@ const toggleDark = useToggle(isDark);
   <button
     aria-label="Toggle Dark Mode"
     type="button"
-    className="ml-1 mr-1 h-8 w-8 p-1 sm:ml-4 fixed right-4 bottom-4 md:right-[5rem] md:bottom-[5rem] bg-crio hover:bg-hw rounded-full "
+    className="ml-1 mr-1 h-8 w-8 p-1 sm:ml-4 fixed right-4 bottom-4 md:right-[5rem] md:bottom-[5rem] bg-slate-200 text-gray-500 dark:bg-slate-100 dark:text-gray-700 rounded-full "
     @click="toggleDark()"
   >
     <svg

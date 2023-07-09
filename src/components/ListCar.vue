@@ -73,7 +73,7 @@
               >
             </td>
             <td class="px-6 py-4">{{ car.hp }}</td>
-            <td class="px-6 py-4">{{ car.price }} €</td>
+            <td class="px-6 py-4">{{ priceChange(car.price) }} €</td>
             <td class="px-6 py-4">
               <div class="flex items-center">
                 <div
@@ -88,7 +88,7 @@
                 type="button"
                 id="button"
                 @click="openEditModal(car?.id)"
-                class="mb-2 md:mb-0 bg-white px-5 py-1.5 text-xs shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100"
+                class="mb-2 md:mb-0 bg-white px-5 py-1.5 text-xs shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100 dark:bg-slate-600 dark:text-white dark:border-gray-500"
               >
                 Edit
               </button>
@@ -139,6 +139,10 @@ export default {
     openEditModal(car) {
       this.selectedCar = car;
       this.isOpen = !this.isOpen;
+    },
+    priceChange(value) {
+      let val = (value / 1).toFixed(2).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
 };

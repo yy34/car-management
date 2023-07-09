@@ -5,6 +5,16 @@ export default {
     Blue: "bg-blue-400",
     Red: "bg-red-400",
   },
+  CURRENCY_OPTIONS: {
+    currency: "EUR",
+    currencyDisplay: "hidden",
+    hideCurrencySymbolOnFocus: true,
+    hideGroupingSeparatorOnFocus: true,
+    hideNegligibleDecimalDigitsOnFocus: true,
+    autoDecimalDigits: false,
+    useGrouping: true,
+    accountingSign: false,
+  },
   COLUMNS: [
     {
       id: 0,

@@ -130,10 +130,8 @@
 
                 <input
                   v-model="car.price"
-                  type="number"
-                  min="0"
-                  max="1000000000"
-                  step="1"
+                  ref="inputRef"
+                  type="text"
                   name="price"
                   id="price"
                   class="shadow-sm bg-gray-50 pl-7 border border-gray-300 text-gray-500 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -231,7 +229,7 @@
           <button
             @click.prevent="saveCar"
             type="submit"
-            class="mb-2 md:mb-0 bg-white px-5 py-2 text-xs shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100"
+            class="mb-2 md:mb-0 bg-white px-5 py-2 text-xs shadow-sm font-medium tracking-wider border text-gray-600 rounded-md hover:shadow-lg hover:bg-gray-100 dark:bg-slate-600 dark:text-white dark:border-gray-500"
           >
             Save
           </button>
@@ -253,8 +251,9 @@ import CONSTANTS from "../data/constants";
 import { useStore } from "vuex";
 import { computed } from "vue";
 import useValidate from "@vuelidate/core";
-import { required, numeric, between, maxLength } from "@vuelidate/validators";
+import { required, between, maxLength } from "@vuelidate/validators";
 import { useToast } from "vue-toastification";
+import { useCurrencyInput } from "vue-currency-input";
 const toast = useToast();
 export default {
   setup(props, context) {
@@ -263,6 +262,9 @@ export default {
     const car = computed(() => store.getters.getCarById);
     const colors = computed(() => store.getters.getAllColors);
     const colorVariants = CONSTANTS.COLOR_WARIANTS;
+    const { inputRef, formattedValue } = useCurrencyInput(
+      CONSTANTS.CURRENCY_OPTIONS
+    );
     const rules = computed(() => {
       return {
         id: {
@@ -278,7 +280,6 @@ export default {
         },
         price: {
           required,
-          numeric,
           maxLength: maxLength(10),
         },
         inStock: {
@@ -291,14 +292,12 @@ export default {
     });
 
     const v$ = useValidate(rules, car);
-
     function editCar() {
       store.dispatch("editCarById", { id: props.selectedCar, car: this.car });
     }
     function closeModal() {
       context.emit("openEditModal");
     }
-
     return {
       closeModal,
       v$,
@@ -306,6 +305,8 @@ export default {
       colors,
       colorVariants,
       editCar,
+      inputRef,
+      formattedValue,
     };
   },
 

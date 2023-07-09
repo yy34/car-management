@@ -5,7 +5,7 @@
       "carId": "64a877edd29ca581ff9492ed",
       "inStock": true,
       "hp": 100,
-      "price": "350000",
+      "price": "23535",
       "color": "White"
     },
     {
@@ -20,8 +20,8 @@
       "id": 2,
       "carId": "64a877edf0b35076a6950969",
       "inStock": true,
-      "hp": 350,
-      "price": 3333333,
+      "hp": 360,
+      "price": "2222222",
       "color": "Red"
     },
     {
@@ -29,15 +29,15 @@
       "carId": "64a877edbead3a79d3cd09fb",
       "inStock": false,
       "hp": 500,
-      "price": 100000,
-      "color": "Black"
+      "price": "33355",
+      "color": "White"
     },
     {
       "id": 4,
       "carId": "64a877ed8055688bf0202f29",
       "inStock": false,
       "hp": 550,
-      "price": "55000250",
+      "price": "600000",
       "color": "Blue"
     },
     {
@@ -45,7 +45,7 @@
       "carId": "64a877ed5fbac12d4393f48a",
       "inStock": false,
       "hp": 275,
-      "price": "5499986",
+      "price": "850000",
       "color": "Red"
     },
     {
@@ -53,7 +53,7 @@
       "carId": "64a877ed365d61bfbc6ee6d3",
       "inStock": true,
       "hp": 400,
-      "price": "4067000",
+      "price": "420044",
       "color": "White"
     }
   ]
