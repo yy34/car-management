@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "vite & json-server --watch cars.json --port 3000",
+    "start": "json-server --watch cars.json --port 3000",
     "build": "vite build",
     "preview": "vite preview"
   },

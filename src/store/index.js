@@ -8,7 +8,7 @@ export default createStore({
     cars: [],
     selectedCar: "",
     isLoading: false,
-    apiURL: import.meta.env.VITE_API_URL,
+    apiURL: "http://localhost:3000/cars",
   },
   getters: {
     getCars: ({ cars }) => cars,
