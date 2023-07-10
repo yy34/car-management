@@ -14,10 +14,18 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+You need to use two different terminals.
+
+### Run fake api with json-server
 
 ```sh
 npm run start
+```
+
+### Run the project
+
+```sh
+npm run dev
 ```
 
 
